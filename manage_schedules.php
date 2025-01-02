@@ -323,4 +323,46 @@ require_once '../includes/header.php';
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle Edit Schedule Modal
+    const editButtons = document.querySelectorAll('.edit-schedule');
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.dataset.id;
+            const busId = this.dataset.bus;
+            const routeId = this.dataset.route;
+            const time = this.dataset.time;
+            const fare = this.dataset.fare;
+            const status = this.dataset.status;
+
+            document.getElementById('edit_schedule_id').value = id;
+            document.getElementById('edit_bus_id').value = busId;
+            document.getElementById('edit_route_id').value = routeId;
+            document.getElementById('edit_departure_time').value = time;
+            document.getElementById('edit_fare').value = fare;
+            document.getElementById('edit_status').value = status;
+        });
+    });
+
+    // Handle Delete Schedule Modal
+    const deleteButtons = document.querySelectorAll('.delete-schedule');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.dataset.id;
+            const busName = this.dataset.bus;
+            const routeName = this.dataset.route;
+            const time = this.dataset.time;
+
+            document.getElementById('delete_schedule_id').value = id;
+            document.getElementById('delete_bus_name').textContent = busName;
+            document.getElementById('delete_route_name').textContent = routeName;
+            document.getElementById('delete_departure_time').textContent = time;
+        });
+    });
+});
+</script>
+
+<?php require_once '../includes/footer.php'; ?>
+
 
