@@ -20,21 +20,21 @@ $schedules = [];
 if ($from && $to) {
     try {
         $query = "
-            SELECT 
-                s.schedule_id,
-                r.from_location,
-                r.to_location,
-                b.bus_name,
-                s.departure_time,
-                s.fare,
-                b.total_seats,
-                (SELECT COUNT(*) FROM bookings WHERE schedule_id = s.schedule_id) as booked_seats
-            FROM schedules s
-            JOIN routes r ON s.route_id = r.route_id
-            JOIN buses b ON s.bus_id = b.bus_id
-            WHERE r.from_location = :from 
-            AND r.to_location = :to
-            AND s.status = 'active'";
+    SELECT 
+        s.schedule_id,
+        r.from_location,
+        r.to_location,
+        b.bus_name,
+        s.departure_time,
+        s.fare,
+        b.total_seats,
+        (SELECT COALESCE(SUM(number_of_seats), 0) FROM bookings WHERE schedule_id = s.schedule_id) as booked_seats
+    FROM schedules s
+    JOIN routes r ON s.route_id = r.route_id
+    JOIN buses b ON s.bus_id = b.bus_id
+    WHERE r.from_location = :from 
+    AND r.to_location = :to
+    AND s.status = 'active'";
         
         if ($date) {
             $query .= " AND DATE(s.departure_time) = :date";
