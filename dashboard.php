@@ -140,7 +140,6 @@ try {
                                         <th>Time</th>
                                         <th>Seats</th>
                                         <th>Total Fare</th>
-                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -152,12 +151,6 @@ try {
                                         <td><?php echo date('h:i A', strtotime($booking['departure_time'])); ?></td>
                                         <td><?php echo $booking['number_of_seats']; ?></td>
                                         <td>$<?php echo number_format($booking['total_fare'], 2); ?></td>
-                                        <td>
-                                            <span class="badge bg-<?php echo $booking['booking_status'] == 'confirmed' ? 'success' : 
-                                                ($booking['booking_status'] == 'pending' ? 'warning' : 'danger'); ?>">
-                                                <?php echo ucfirst($booking['booking_status']); ?>
-                                            </span>
-                                        </td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
